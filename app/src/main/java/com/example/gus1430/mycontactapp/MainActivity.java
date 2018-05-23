@@ -8,7 +8,6 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
