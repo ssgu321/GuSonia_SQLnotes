@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Contact2018.db";
     public static final String TABLE_NAME = "Contact2018_table";
     public static final String ID = "ID";
@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_NAME_CONTACT + " TEXT," +
+                    COLUMN_NAME_CONTACT + " TEXT" +
                     COLUMN_ADDRESS_CONTACT + "TEXT," +
                     COLUMN_PHONENUM_CONTACT + "TEXT)";
 
@@ -48,10 +48,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_CONTACT, name);
+        Log.d("myContactApp", "DatabaseHelper: inserting name");
+
+
         contentValues.put(COLUMN_ADDRESS_CONTACT, address);
+        Log.d("myContactApp", "DatabaseHelper: inserting address");
         contentValues.put(COLUMN_PHONENUM_CONTACT, pNum);
+        Log.d("myContactApp", "DatabaseHelper: inserting num");
 
         long result = db.insert(TABLE_NAME, null, contentValues);
+        Log.d("myContactApp", "DatabaseHelper: inserted into table");
 
 
         if(result == -1){
