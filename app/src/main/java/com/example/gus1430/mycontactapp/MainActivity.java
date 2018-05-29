@@ -1,5 +1,6 @@
 package com.example.gus1430.mycontactapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +78,30 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(message);
         builder.show();
+
+    }
+
+    public static final String EXTRA_MESSAGE = "com.example.gus1430.mycontactapp.MESSAGE";
+
+    public void SearchRecord(View view){
+        Log.d("myContactApp", "MainActivity: Launching SearchActivity");
+        Intent intent = new Intent(this, SearchActivity.class);
+
+        Cursor res = myDb.getAllData();
+        StringBuffer buffer = new StringBuffer();
+
+        while(res.moveToNext()){
+            if(res.getString(1).equals(editName.getText().toString())){
+                Log.d("myContactApp", "MainActivity: Equals");
+
+                buffer.append(res.getString(1) + "\n");
+                buffer.append(res.getString(2) + "\n");
+                buffer.append(res.getString(3) + "\n" + "\n");
+            }
+        }
+
+        intent.putExtra(EXTRA_MESSAGE, buffer.toString());
+        startActivity(intent);
 
     }
 
