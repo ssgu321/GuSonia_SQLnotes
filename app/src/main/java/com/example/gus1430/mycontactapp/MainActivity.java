@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static final String EXTRA_MESSAGE = "com.example.gus1430.mycontactapp.MESSAGE";
-
+    private boolean noContacts = true;
     public void SearchRecord(View view){
         Log.d("myContactApp", "MainActivity: Launching SearchActivity");
         Intent intent = new Intent(this, SearchActivity.class);
@@ -91,13 +91,17 @@ public class MainActivity extends AppCompatActivity {
         StringBuffer buffer = new StringBuffer();
 
         while(res.moveToNext()){
-            if(res.getString(1).equals(editName.getText().toString())){
+            if(res.getString(1).equals(editName.getText().toString())) {
                 Log.d("myContactApp", "MainActivity: Equals");
 
                 buffer.append(res.getString(1) + "\n");
                 buffer.append(res.getString(2) + "\n");
                 buffer.append(res.getString(3) + "\n" + "\n");
+                noContacts = false;
             }
+        }
+        if(noContacts){
+            buffer.append("No Matching Contacts");
         }
 
         intent.putExtra(EXTRA_MESSAGE, buffer.toString());
